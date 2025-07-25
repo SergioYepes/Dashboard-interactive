@@ -11,7 +11,7 @@ const FileUpload : React.FC<Props>=({onResult})=>{
         const formData = new FormData()
         formData.append('file', file)
 
-        const res= await axios.post('http://localhost:8000/upload', formData,{
+        const res= await axios.post('http://backend:8000/upload', formData,{
             headers: {'Content-Type':"multipart/form-data"}
         })
         onResult(res.data)
