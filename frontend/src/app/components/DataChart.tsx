@@ -26,6 +26,8 @@ export default function DataChart({ data, xKey, yKey, chartType }: Props) {
     height: 300,
     data: filterData,
   };
+  console.log(chartType);
+  
 
   return (
     <div style={{ width: "100%", height: "400px" }}>

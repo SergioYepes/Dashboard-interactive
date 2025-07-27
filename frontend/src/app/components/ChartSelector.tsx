@@ -43,9 +43,9 @@ export default function ChartSelector({data, xKey, yKey, chartType, onConfigChan
                 ))}
             </select>
             <select value={chartTypeSelected} onChange={(e)=>setChartType(e.target.value)} className='border p-1'>
-                <option value="bar">Bar</option>
-                <option value="line">Line</option>
-                <option value="pie">Pie</option>
+                <option value="Bar">Bar</option>
+                <option value="Line">Line</option>
+                <option value="Pie">Pie</option>
             </select>
             <button onClick={handleApply} className='bg-blue-500 text-white px-4 py-2 rounded-md'>
                 Aplicar
