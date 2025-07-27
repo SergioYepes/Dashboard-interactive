@@ -14,7 +14,7 @@ export default function ModelsPage(){
     const[models, setModels] =useState<Model[]>([])
 
     useEffect(()=>{
-        fetch("http://backend:8000/models")
+        fetch("http://localhost:8000/models")
         .then((res)=> res.json())
         .then(setModels)
     },[])

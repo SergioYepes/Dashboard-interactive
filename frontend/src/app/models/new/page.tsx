@@ -11,7 +11,7 @@ export default function NewModelPage(){
     const handleSubmit = async(e: React.FormEvent)=>{
         e.preventDefault()
         try{
-            const res= await fetch("http://backend:8000/models", {
+            const res= await fetch("http://localhost:8000/models", {
                 method:"POST",
                 headers:{"Content-type": "application/json"},
                 body: JSON.stringify({
