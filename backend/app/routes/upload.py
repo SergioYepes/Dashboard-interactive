@@ -24,5 +24,5 @@ async def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db
     return {
         "id": dataset.id,
         "columns": df.columns.tolist(),
-        "preview": df.head().to_dict(orient="records")
+        "preview": df.head(len(df) + 1).to_dict(orient="records")
     }

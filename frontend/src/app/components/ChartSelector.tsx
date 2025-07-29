@@ -16,8 +16,7 @@ export default function ChartSelector({data, xKey, yKey, chartType, onConfigChan
     const[YKey, setYKey] = useState(yKey)
     const [chartTypeSelected, setChartType] = useState(chartType)
     const columnTypes= inferColumnTypes(data)
-    const stringColumns = columnTypes.filter(c=>c.type ==="string").map((c)=>c.name)
-    const numberColumns = columnTypes.filter(c=>c.type ==="number").map((c)=>c.name)
+    const allColumns = columnTypes.map(c=>c.name)
     const handleApply=()=>{
         if (XKey && YKey) {
             onConfigChange(XKey, YKey, chartTypeSelected);
@@ -28,7 +27,7 @@ export default function ChartSelector({data, xKey, yKey, chartType, onConfigChan
         <div className='space-y-2 mb-4'>
             <select value={XKey} onChange={(e)=>setxKey(e.target.value)} className='border p-1'>
                 <option value="">Eje X</option>
-                {stringColumns.map((column) => (
+                {allColumns.map((column) => (
                     <option key={column} value={column}>
                         {column}
                     </option>
@@ -36,7 +35,7 @@ export default function ChartSelector({data, xKey, yKey, chartType, onConfigChan
             </select>
             <select value={YKey} onChange={(e)=>setYKey(e.target.value)} className='border p-1'>
                 <option value="">Eje Y</option>
-                {numberColumns.map((column) => (
+                {allColumns.map((column) => (
                     <option key={column} value={column}>
                         {column}
                     </option>

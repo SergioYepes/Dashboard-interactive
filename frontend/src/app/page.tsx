@@ -4,7 +4,6 @@ import FileUpload from "./components/FileUpload";
 import DataTable from "./components/DataTable";
 import ChartSelector from "./components/ChartSelector";
 import DataChart from "./components/DataChart";
-import { inferColumnTypes } from "./lib/utils/InferColumnTypes";
 
 export default function Home() {
   const [data, setData] = useState<Record<string, unknown>[]>([]);
@@ -14,10 +13,10 @@ export default function Home() {
   const handleUploadResult =(res: { columns: string[]; preview: Record<string, unknown>[] })=>{
     setColumns(res.columns)
     setData(res.preview)
-    const types= inferColumnTypes(res.preview)
-    const stringColumn =types.find(col=> col.type === "string")?.name || ""
-    const numberColumn =types.find(col=> col.type === "number")?.name  || ""
-    setChart({ xKey: stringColumn, yKey: numberColumn, chartType: "Bar" });
+    const x = res.columns[0] || "";
+    const y = res.columns[1] || "";
+
+    setChart({ xKey: x, yKey: y, chartType: "Bar" });
   }
   console.log(data, "data");
   
