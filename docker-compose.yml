@@ -2,15 +2,20 @@ version: '3.9'
 
 services:
   db:
-    image: postgres
+    image: mysql:8
     environment:
-      POSTGRES_DB: dashboard
-      POSTGRES_USER: scp682
-      POSTGRES_PASSWORD: komachi22
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      MYSQL_DATABASE: dashboard
+      MYSQL_USER: scp682
+      MYSQL_PASSWORD: Ucompensar.
+      MYSQL_ROOT_PASSWORD: komachi22
     ports:
-      - "5432:5432"
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
   backend:
     build: ./backend
@@ -19,9 +24,10 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
-      - DATABASE_URL=postgresql://scp682:komachi22@db:5432/dashboard
+      - DATABASE_URL=mysql+pymysql://scp682:Ucompensar.@db:3306/dashboard
 
   frontend:
     build: ./frontend
@@ -31,16 +37,14 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - "5050:80"
+      - 8080:8080
     depends_on:
       - db
 
 volumes:
-  postgres_data:
-
+  mysql_data:
