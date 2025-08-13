@@ -13,6 +13,8 @@ interface DataFrame {
   file_size: string;
 }
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 export default function GraficasPage() {
   const [dataframes, setDataframes] = useState<DataFrame[]>([]);
   const [selectedDataframe, setSelectedDataframe] = useState<string>("");
@@ -26,7 +28,7 @@ export default function GraficasPage() {
   useEffect(() => {
     const fetchDataframes = async () => {
       try {
-        const response = await fetch('http://localhost:8000/dataframes/');
+        const response = await fetch(`${API_BASE_URL}/dataframes/`);
         if (response.ok) {
           const dataframesData = await response.json();
           setDataframes(dataframesData);
@@ -49,7 +51,7 @@ export default function GraficasPage() {
     
     try {
       // Obtener datos del dataframe seleccionado desde el backend
-      const response = await fetch(`http://localhost:8000/dataframes/${dataframeId}/preview?rows=50`);
+      const response = await fetch(`${API_BASE_URL}/dataframes/${dataframeId}/preview?rows=50`);
       
       if (response.ok) {
         const result = await response.json();

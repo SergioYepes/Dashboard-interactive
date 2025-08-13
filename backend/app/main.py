@@ -5,14 +5,26 @@ from app.database import Base,engine
 from app.routes import models
 from app.routes import dataframes
 from app.routes import sql
+import os
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+# Configurar CORS para producción y desarrollo
+origins = [
+    "http://localhost:3000",  # Desarrollo local
+    "https://*.vercel.app",   # Vercel domains
+    "https://*.onrender.com", # Render domains
+]
+
+# Permitir todos los orígenes en desarrollo
+if os.getenv("ENVIRONMENT") != "production":
+    origins.append("*")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

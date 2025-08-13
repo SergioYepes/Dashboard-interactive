@@ -9,6 +9,8 @@ interface TableInfo {
   file_size: string;
 }
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 export default function ConsultasPage() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Record<string, unknown>[]>([]);
@@ -21,7 +23,7 @@ export default function ConsultasPage() {
   useEffect(() => {
     const fetchTables = async () => {
       try {
-        const response = await fetch('http://localhost:8000/sql/tables');
+        const response = await fetch(`${API_BASE_URL}/sql/tables`);
         if (response.ok) {
           const data = await response.json();
           setTables(data.tables);
@@ -80,7 +82,7 @@ export default function ConsultasPage() {
     setResults([]);
     
     try {
-      const response = await fetch('http://localhost:8000/sql/execute', {
+      const response = await fetch(`${API_BASE_URL}/sql/execute`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
