@@ -6,6 +6,7 @@ const DataTable: React.FC<DataTableProps> = ({data}) => {
     if (!data || data.length === 0) return null
     const columns =Object.keys(data[0])
     return (
+        <div className="overflow-x-auto max-h-[500px] overflow-y-scroll">
         <table className="table-auto border-collapse border border-gray-400">
             <thead>
                 <tr>
@@ -24,6 +25,7 @@ const DataTable: React.FC<DataTableProps> = ({data}) => {
                 ))}
             </tbody>
         </table>
+        </div>
     )
     }
 export default DataTable
